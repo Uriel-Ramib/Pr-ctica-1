@@ -10,10 +10,11 @@ package practicas;
  * @author Uriel
  */
 public class Directivas {
-    public boolean direct1(String DIR, String ETQ, String OP, int val, int Nlin){
+
+    public boolean direc1(String DIR, String ETQ, String OP, int val, int Nlin){
         switch(DIR){
             case "DW":
-                if(val < 0 || val > 65535){
+                if(val <0 || val >65535 ){
                     System.out.println("ERROR");
                     System.out.println("OPERANDO DEMASIADO GRANDE");
                     System.out.println("LINEA " + Nlin);
@@ -21,7 +22,7 @@ public class Directivas {
                 }
                 return true;
             case "DB":
-                if(val < 0 || val > 255){
+                if(val <0 || val >255 ){
                     System.out.println("ERROR");
                     System.out.println("OPERANDO DEMASIADO GRANDE");
                     System.out.println("LINEA " + Nlin);
@@ -29,7 +30,7 @@ public class Directivas {
                 }
                 return true;
             case "DC.W":
-                if(val < 0 || val > 65535){
+                if(val <0 || val >65535 ){
                     System.out.println("ERROR");
                     System.out.println("OPERANDO DEMASIADO GRANDE");
                     System.out.println("LINEA " + Nlin);
@@ -37,7 +38,7 @@ public class Directivas {
                 }
                 return true;
             case "DC.B":
-                if(val < 0 || val > 255){
+                if(val <0 || val >255 ){
                     System.out.println("ERROR");
                     System.out.println("OPERANDO DEMASIADO GRANDE");
                     System.out.println("LINEA " + Nlin);
@@ -45,7 +46,7 @@ public class Directivas {
                 }
                 return true;
             case "FCB":
-                if(val < 0 || val > 255){
+                if(val <0 || val >255 ){
                     System.out.println("ERROR");
                     System.out.println("OPERANDO DEMASIADO GRANDE");
                     System.out.println("LINEA " + Nlin);
@@ -53,7 +54,7 @@ public class Directivas {
                 }
                 return true;
             case "FDB":
-                if(val < 0 || val > 65535){
+                if(val <0 || val >65535 ){
                     System.out.println("ERROR");
                     System.out.println("OPERANDO DEMASIADO GRANDE");
                     System.out.println("LINEA " + Nlin);
@@ -63,7 +64,7 @@ public class Directivas {
             case "FCC":
                 return true;
             case "ORG":
-                if(val < 0 || val > 65535){
+                if(val <0 || val >65535 ){
                     System.out.println("ERROR");
                     System.out.println("OPERANDO DEMASIADO GRANDE");
                     System.out.println("LINEA " + Nlin);
@@ -72,8 +73,24 @@ public class Directivas {
                 return true;
             case "END":
                 return true;
+            case "DS":
+                if(val <0 || val > 65535){
+                    System.out.println("ERROR");
+                    System.out.println("OPERANDO DEMASIADO GRANDE");
+                    System.out.println("LINEA " + Nlin);
+                    System.exit(0);
+                }
+                return true;
+            case "DS.B":
+                if(val <0 || val > 65535){
+                    System.out.println("ERROR");
+                    System.out.println("OPERANDO DEMASIADO GRANDE");
+                    System.out.println("LINEA " + Nlin);
+                    System.exit(0);
+                }
+                return true;
             case "DS.W":
-                if(val < 0 || val > 65535){
+                if(val <0 || val > 65535){
                     System.out.println("ERROR");
                     System.out.println("OPERANDO DEMASIADO GRANDE");
                     System.out.println("LINEA " + Nlin);
@@ -81,7 +98,7 @@ public class Directivas {
                 }
                 return true;
             case "RMB":
-                if(val < 0 || val > 65535){
+                if(val <0 || val > 65535){
                     System.out.println("ERROR");
                     System.out.println("OPERANDO DEMASIADO GRANDE");
                     System.out.println("LINEA " + Nlin);
@@ -89,20 +106,21 @@ public class Directivas {
                 }
                 return true;
             case "RMW":
-                if(val < 0 || val > 65535){
+                if(val <0 || val > 65535){
                     System.out.println("ERROR");
                     System.out.println("OPERANDO DEMASIADO GRANDE");
                     System.out.println("LINEA " + Nlin);
                     System.exit(0);
-                }
+                }   
                 return true;
             case "EQU":
-                if(val < 0 || val > 65535){
+                if(val <0 || val > 65535){
                     System.out.println("ERROR");
                     System.out.println("OPERANDO DEMASIADO GRANDE");
                     System.out.println("LINEA " + Nlin);
                     System.exit(0);
                 }
+                
                 return true;
         }
         return false;
@@ -141,7 +159,7 @@ public class Directivas {
             case "DC.B":
                 if(val <0 || val >255 ){
                     System.out.println("ERROR");
-                    System.out.println("OPERANDO DEMACIADO GRANDE");
+                    System.out.println("OPERANDO DEMASIADO GRANDE");
                     System.out.println("LINEA " + Nlin);
                     System.exit(0);
                 }
@@ -150,7 +168,7 @@ public class Directivas {
             case "FCB":
                 if(val <0 || val >255 ){
                     System.out.println("ERROR");
-                    System.out.println("OPERANDO DEMACIADO GRANDE");
+                    System.out.println("OPERANDO DEMASIADO GRANDE");
                     System.out.println("LINEA " + Nlin);
                     System.exit(0);
                 }
@@ -159,7 +177,7 @@ public class Directivas {
             case "FDB":
                 if(val <0 || val >65535 ){
                     System.out.println("ERROR");
-                    System.out.println("OPERANDO DEMACIADO GRANDE");
+                    System.out.println("OPERANDO DEMASIADO GRANDE");
                     System.out.println("LINEA " + Nlin);
                     System.exit(0);
                 }
@@ -182,7 +200,7 @@ public class Directivas {
             case "DS":
                 if(val <0 || val > 65535){
                     System.out.println("ERROR");
-                    System.out.println("OPERANDO DEMACIADO GRANDE");
+                    System.out.println("OPERANDO DEMASIADO GRANDE");
                     System.out.println("LINEA " + Nlin);
                     System.exit(0);
                 }
@@ -191,7 +209,7 @@ public class Directivas {
             case "DS.B":
                 if(val <0 || val > 65535){
                     System.out.println("ERROR");
-                    System.out.println("OPERANDO DEMACIADO GRANDE");
+                    System.out.println("OPERANDO DEMASIADO GRANDE");
                     System.out.println("LINEA " + Nlin);
                     System.exit(0);
                 }
@@ -218,7 +236,7 @@ public class Directivas {
             case "RMW":
                 if(val <0 || val > 65535){
                     System.out.println("ERROR");
-                    System.out.println("OPERANDO DEMACIADO GRANDE");
+                    System.out.println("OPERANDO DEMASIADO GRANDE");
                     System.out.println("LINEA " + Nlin);
                     System.exit(0);
                 }
