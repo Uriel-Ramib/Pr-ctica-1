@@ -170,7 +170,7 @@ public class LeerTemp {
                                                 CodigoM.add(p, aux+PrePost(operando.get(p)).toUpperCase());
                                                 break;
                                             }
-                                            if(E[0].equals("A") || E[0].equals("B") || E[0].equals("D")){   
+                                            if(E[0].equals("A") || E[0].equals("B") || E[0].equals("D")){
                                                  CodigoM.add(p, aux + Integer.toHexString(Integer.parseInt("111"+CalcularRR(operando.get(p))+"1"+CalcularRR(","+E[0]), 2)).toUpperCase());
                                             }
                                             else{
@@ -239,9 +239,52 @@ public class LeerTemp {
                                         case "IDX2":
                                             aux = (String) stT.nextElement();
                                             String[] g = operando.get(p).split(",");
-                                            aux = aux + String.valueOf(Integer.toHexString(Integer.parseInt("111"+CalcularRR(operando.get(p))+"010",2))) 
-                                                      + Integer.toHexString(Integer.parseInt(g[0]));
+                                            aux = aux + String.valueOf(Integer.toHexString(Integer.parseInt("111"+CalcularRR(operando.get(p))+"010",2))) + Integer.toHexString(Integer.parseInt(g[0]));
                                             CodigoM.add(p, aux.toUpperCase());
+                                            break;
+                                        case "[IDX2]":
+                                            aux = (String) stT.nextElement();
+                                            String s71 = operando.get(p).replace("]", "");
+                                            String s7 = Integer.toHexString(Integer.parseInt("111"+CalcularRR(s71)+"011",2));
+                                            s71 = operando.get(p).replace("[", "");
+                                            String[] s72 = s71.split(",");
+                                            s71 = Integer.toHexString(Integer.parseInt(s72[0]));
+                                            for(int i = 0;i<4;i++){
+                                                if(s71.length() < 4){
+                                                    s71 = "0" + s71;
+                                                }
+                                            }
+                                            s7 = s7 + s71;
+                                            CodigoM.add(p, aux + s7.toUpperCase());
+                                            break;
+                                        case "[D,IDX]":
+                                            aux = (String) stT.nextElement();
+                                            String s8;
+                                            s8=Integer.toHexString(Integer.parseInt("111"+CalcularRR(operando.get(p).replace("]", ""))+"111",2));
+                                            CodigoM.add(p, aux + s8.toUpperCase());
+                                            break;
+                                        case "REL":
+                                            aux = (String) stT.nextElement();
+                                            String s9="";
+                                            if(CODOP.get(p).toUpperCase().charAt(0) == 'B'){
+                                                String sRel = Rel(p, 8);
+                                                for(int i = 0;i<2;i++){
+                                                    if(sRel.length() < 2){
+                                                        sRel = "0" + sRel;
+                                                    }
+                                                }
+                                                CodigoM.add(aux + sRel.toUpperCase());
+                                                break;
+                                            }
+                                            else{
+                                                String sRel = Rel(p, 16);
+                                                for(int i = 0;i<4;i++){
+                                                    if(sRel.length() < 4){
+                                                        sRel = "0" + sRel;
+                                                    }
+                                                }
+                                                CodigoM.add(aux + sRel.toUpperCase());
+                                            }
                                             break;
                                     }
                                 }
@@ -272,6 +315,50 @@ public class LeerTemp {
             ex.printStackTrace();
         }
     }
+    
+    public static String Rel(int position, int limit){
+        LeerTABSIM l = new LeerTABSIM();
+        String s = l.Buscar(operando.get(position));
+        
+        if(Integer.parseInt(valor.get(position+1), 16) < Integer.parseInt(s, 16)){
+            int aux = Integer.parseInt(s, 16) - Integer.parseInt(valor.get(position+1), 16);
+            if(chaeckLim(aux, limit)){
+                
+                return Integer.toHexString(aux);
+            }
+        }
+        else{
+            int aux = Integer.parseInt(valor.get(position+1), 16) - Integer.parseInt(s, 16);
+            if(chaeckLim(aux, limit)){
+                String s1 = String.valueOf(aux);
+                for(int i = 0;i<limit;i++){
+                    if(s1.length() < limit){
+                        s1 = "0" + s1;
+                    }
+                }
+                System.out.println(aux);
+                return Integer.toHexString(Integer.parseInt(C2(s1, limit-1),2));
+            }
+        }
+        return s;
+    }
+    public static boolean chaeckLim(int valor, int limit){
+        if(limit == 8){
+            if(valor<-128 || valor>127){
+                System.out.println("“RANGO DEl DESPLAZAMIENTO NO VÁLIDO");
+                System.exit(0);
+            }
+        }
+        else{
+            if(valor<-32768 || valor>32767){
+                System.out.println("“RANGO DEl DESPLAZAMIENTO NO VÁLIDO");
+                System.exit(0);
+            }
+        }
+        
+        return true;
+    }
+    
     public static String PrePost(String s){
         String[] g = s.split(",");
         
@@ -286,7 +373,6 @@ public class LeerTemp {
             }
             
             String fin=CalcularRR(","+aux)+"10"+h;
-            System.out.println(fin);
             return Integer.toHexString(Integer.parseInt(fin, 2));
         }
         else if(g[1].charAt(0) == '-'){                                         //pre decremento
@@ -299,9 +385,7 @@ public class LeerTemp {
                     h ="0"+ h;
                 }
             }
-            
             String fin=CalcularRR(","+aux)+"10"+C2(h, 3);
-            System.out.println(fin);
             return Integer.toHexString(Integer.parseInt(fin, 2));
         }
         else if(g[1].charAt(g[1].length()-1) == '+'){                           //post incremento
@@ -332,7 +416,6 @@ public class LeerTemp {
             }
             
             String fin=CalcularRR(","+aux)+"11"+C2(h, 3);
-            System.out.println(fin);
             return Integer.toHexString(Integer.parseInt(fin, 2));
         }
         else{
@@ -388,6 +471,7 @@ public class LeerTemp {
             default:
                 System.out.println(s);
                 System.out.println("ERROR NO SE ENCONTRO X, Y, SP, O PC");
+                System.exit(0);
         }
         return "";
     }

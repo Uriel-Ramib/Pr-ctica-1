@@ -51,7 +51,7 @@ public class Practicas {
     }
     public static void Leer(){                                                  //metodo para leer el archivo
         try {
-            Scanner input = new Scanner(new File("P3ASM.txt"));                 //abrir archivo con la ruta especificada (la ruta es)
+            Scanner input = new Scanner(new File("P2ASM.txt"));                 //abrir archivo con la ruta especificada (la ruta es)
             int nLin = 1;
             while (input.hasNextLine()) {
                 String line = input.nextLine();                                 //guardar linea completa del documento                
