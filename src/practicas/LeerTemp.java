@@ -60,12 +60,26 @@ public class LeerTemp {
         }
         Directivas d = new Directivas();
         for(int i = 0;i<tipo.size();i++){
-            
             if(!d.direc(CODOP.get(i), etq.get(i), operando.get(i), busVal(operando.get(i), i), i)){
                 Iden(i);
             }
             else{
-                CodigoM.add("0");
+                if(CODOP.get(i).equals("FCC")){
+                    String name="";
+                    for(int i2 = 1;i2<operando.get(i).length()-1;i2++){
+                        name=name + Integer.toHexString(operando.get(i).codePointAt(i2));
+                    }
+                    CodigoM.add(i, String.valueOf(name.toUpperCase()));
+                }
+                else if(CODOP.get(i).equals("ORG")){
+                    CodigoM.add("0");
+                }
+                else if(CODOP.get(i).equals("END")){
+                    CodigoM.add("0");
+                }
+                else if(!"-1".equals(d.direcVal(CODOP.get(i),Integer.parseInt(operando.get(i))))){
+                    CodigoM.add(i, d.direcVal(CODOP.get(i),Integer.parseInt(operando.get(i))).toUpperCase());
+                }
             }
             if(CODOP.get(i).equals("END")){
                 CodigoM.add(i,"0");
@@ -150,7 +164,18 @@ public class LeerTemp {
                                             CodigoM.add(p, s2);
                                             break;
                                         case "Extendido":
+                                            String aux1E = operando.get(p);
                                             aux = (String) stT.nextElement();
+                                            if(aux1E.charAt(0) != '$'){
+                                                if(Character.isAlphabetic(aux1E.charAt(0))){
+                                                    LeerTABSIM l = new LeerTABSIM();
+                                                    String s3E = l.Buscar(operando.get(p));
+                                                    if(!s3E.equals("")){
+                                                        CodigoM.add(p, (aux+s3E));
+                                                    }
+                                                    break;
+                                                }
+                                            }
                                             String s3 = Integer.toHexString(val);
                                             for(int i = 0;i<6;i++){
                                                 if(s3.length()+aux.length() < 6){
@@ -305,6 +330,7 @@ public class LeerTemp {
                                     s3=s3.toUpperCase();
                                     CodigoM.add(p, s3);
                                 }
+                                
                             }
                             break;
                     }
@@ -336,7 +362,6 @@ public class LeerTemp {
                         s1 = "0" + s1;
                     }
                 }
-                System.out.println(aux);
                 return Integer.toHexString(Integer.parseInt(C2(s1, limit-1),2));
             }
         }
@@ -345,6 +370,7 @@ public class LeerTemp {
     public static boolean chaeckLim(int valor, int limit){
         if(limit == 8){
             if(valor<-128 || valor>127){
+                System.out.println(valor);
                 System.out.println("“RANGO DEl DESPLAZAMIENTO NO VÁLIDO");
                 System.exit(0);
             }

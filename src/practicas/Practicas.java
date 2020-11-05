@@ -15,10 +15,10 @@ public class Practicas {
     /**
      * @param args the command line arguments
      */
-        public static String etiqueta = null, codigo = null, operando = null;
+        public static String etiqueta = null, codigo = null, operando = null, operando2 = null;
    
     public static boolean salir = false;
-    public static boolean agrLinea = true;                                      //para no agregar las lineas con aomentarios
+    public static boolean agrLinea = true;                                      //para no agregar las lineas con comentarios
     public static String mod = "";
     public static String rel = "";
     public static void main(String[] args) {
@@ -136,9 +136,14 @@ public class Practicas {
                                            
                                            break;
                                         }
-                                        au.inicio("DIR", Nlin, etiqueta, operando, codigo);
-                                        bandera = false;
-                                        
+                                        else if(codigo.equals("FCC")){
+                                            au.inicio("DIR", Nlin, etiqueta, operando2, codigo); 
+                                            bandera = false;
+                                        }
+                                        else{
+                                            au.inicio("DIR", Nlin, etiqueta, operando, codigo);
+                                            bandera = false;
+                                        }
                                         break;
                                     }
                                     else if(codigo.toUpperCase().equals(stT.nextToken().toUpperCase())){
@@ -253,7 +258,7 @@ public class Practicas {
                 }catch (Exception ex) {
                     ex.printStackTrace();
             }
-            codigo = null; etiqueta = null; operando = null;
+            codigo = null; etiqueta = null; operando = null; operando2 = null;
         }
         else{
             System.out.println("COMENTARIO");
@@ -581,8 +586,7 @@ public class Practicas {
                     }
                 }
                 
-            }
-            
+            }   
         }
         else{
             String aux[] = val.split(",");
@@ -595,7 +599,7 @@ public class Practicas {
                 System.exit(0);
             }
         }
-        return 0;
+        return -1;
         }
         catch(Exception e){
             return 0;
@@ -695,6 +699,7 @@ public class Practicas {
                 salir = true;
             }
             operando = Seg.toUpperCase();
+            operando2 = Seg;
         }
         if(Pseg>2){
             System.out.println(Seg);
