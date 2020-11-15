@@ -113,14 +113,7 @@ public class Directivas {
                     System.exit(0);
                 }   
                 return true;
-            case "EQU":
-                if(val <0 || val > 65535){
-                    System.out.println("ERROR");
-                    System.out.println("OPERANDO NO VALIDO");
-                    System.out.println("LINEA " + Nlin);
-                    System.exit(0);
-                }
-                
+            case "EQU":  
                 return true;
         }
         return false;
@@ -252,7 +245,7 @@ public class Directivas {
                     System.out.println("LINEA " + Nlin);
                     System.exit(0);
                 }   
-                return "0";
+                return "00";
         }
         return "-1";
     }

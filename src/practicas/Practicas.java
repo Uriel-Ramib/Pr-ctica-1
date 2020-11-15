@@ -1,5 +1,5 @@
 /*
- * PRACTICA 4
+ * PRACTICA 10
  */
 package practicas;
 import java.io.File;
@@ -8,7 +8,7 @@ import java.util.StringTokenizer;
 
 /**
  *
- * @author adrian
+ * @author Uriel
  */
 public class Practicas {
 
@@ -18,9 +18,10 @@ public class Practicas {
         public static String etiqueta = null, codigo = null, operando = null, operando2 = null;
    
     public static boolean salir = false;
-    public static boolean agrLinea = true;                                      //para no agregar las lineas con comentarios
+    public static boolean agrLinea = true;                                      //para no agregar las lineas con aomentarios
     public static String mod = "";
     public static String rel = "";
+    public static String Arc;
     public static void main(String[] args) {
         automata au = new automata();
         au.init("");
@@ -48,10 +49,17 @@ public class Practicas {
         LeerTemp lt = new LeerTemp();
         //System.out.println("NOOO");
         lt.LeerX();
+        Generarobj ob = new Generarobj();
+        ob.createObj(Arc);
+        
+    }
+    public static String getAcrchivo(){
+        return Arc;
     }
     public static void Leer(){                                                  //metodo para leer el archivo
         try {
-            Scanner input = new Scanner(new File("P2ASM.txt"));                 //abrir archivo con la ruta especificada (la ruta es)
+            Arc = "AsmTemp.asm";
+            Scanner input = new Scanner(new File(Arc));                 //abrir archivo con la ruta especificada (la ruta es)
             int nLin = 1;
             while (input.hasNextLine()) {
                 String line = input.nextLine();                                 //guardar linea completa del documento                
@@ -505,6 +513,9 @@ public class Practicas {
                 salir=true;
             }
         }
+        if(val.contains("#")){
+            return Integer.parseInt(val.replace("#", ""));
+        }
         if(salir== true){
             if(val.contains("@")){
                 String cadena[] = val.split("@");
@@ -586,7 +597,9 @@ public class Practicas {
                     }
                 }
                 
-            }   
+            }
+           
+            
         }
         else{
             String aux[] = val.split(",");
